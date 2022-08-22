@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<div><button class="btn btn-success mt-2" routerLink="/dashboard/addHeure">Ajouter Heure</button></div>  
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User ID</th>
+                <!-- <th scope="col">Date</th> -->
+                <th scope="col">Heure Debut</th>
+                <th scope="col">Heure Fin</th>
+                <th scope="col">Tache</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="this.isAdmin">
+            <tr *ngFor="let hr of hours" >
+                <th scope="row">{{hr.id}}</th>
+                <td>{{hr.user_id}}</td>
+                <!-- <td>{{hr.date}}</td> -->
+                <td>{{hr.date_debut}}</td>
+                <td>{{hr.date_fin}}</td>
+                <td>{{hr.tache}}</td>
+                <td><button class="btn btn-danger btn-sm"(click)="deleteHour(hr.id)">Delete</button></td>
+                <td><button class="btn btn-warning btn-sm mx-2"routerLink="editHeure/{{hr.id}}">Edit</button></td>
+
+        </tbody>
+    
+    </table>
