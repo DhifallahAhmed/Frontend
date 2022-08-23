@@ -41,7 +41,7 @@ export class HeureAddComponent implements OnInit {
       );
   }
   insert(){
-    if (this.hour.date_debut > "17:00" && this.hour.date_fin < "22:00" && this.hour.date_fin > this.hour.date_debut){
+    if (this.hour.date_debut > "17:00" && this.hour.date_fin < "22:00" && this.hour.date_fin > this.hour.date_debut && this.hour.tache != null && this.hour.user_id != null){
         this.dataService.insertHour(this.hour).subscribe(res => {
         this.data = res;  
     });
