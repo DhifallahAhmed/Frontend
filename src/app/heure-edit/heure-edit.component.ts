@@ -15,6 +15,8 @@ export class HeureEditComponent implements OnInit {
   hours:any
   user = new User();
   users:any;
+  db:any;
+  fn:any;
   constructor(private dataService:DataService, private Route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -31,8 +33,16 @@ export class HeureEditComponent implements OnInit {
     })
   }
   update(){
+    this.db = this.hour.date_debut.substring(11,13);
+    this.fn = this.hour.date_fin.substring(11,13);
+          
+    if (this.db > '16' && this.fn < '23'){
     this.dataService.updateHour(this.id,this.hour).subscribe(res => {
     });
+  }
+  else{
+    alert('Vérifiez les coordonnées');
+  }
 }
 getUserData(){
   this.dataService.getData().subscribe(res => {

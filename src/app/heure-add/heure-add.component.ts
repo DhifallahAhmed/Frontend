@@ -5,6 +5,7 @@ import { User } from 'app/user';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-heure-add',
   templateUrl: './heure-add.component.html',
@@ -23,7 +24,11 @@ export class HeureAddComponent implements OnInit {
   name: any;
   email: any;
   isAdmin: any;
-  constructor(private router:Router, private dataService:DataService, private Route:ActivatedRoute) { }
+  maDate: any;
+  maDate1: any;
+  db:any;
+  fn:any;
+  constructor(private datePipe: DatePipe,private router:Router, private dataService:DataService, private Route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.Route.snapshot.params['id'];
@@ -41,13 +46,23 @@ export class HeureAddComponent implements OnInit {
       );
   }
   insert(){
-    if (this.hour.date_debut > "17:00" && this.hour.date_fin < "22:00" && this.hour.date_fin > this.hour.date_debut && this.hour.tache != null && this.hour.user_id != null){
-        this.dataService.insertHour(this.hour).subscribe(res => {
+
+    
+    if (this.hour.date_fin > this.hour.date_debut && this.hour.tache != null && this.hour.user_id != null && this.hour.date_debut!=null && this.hour.date_fin!=null){
+      this.db = this.hour.date_debut.substring(11,13);
+      this.fn = this.hour.date_fin.substring(11,13);
+            
+      if (this.db > '16' && this.fn < '23'){
+        
+      this.dataService.insertHour(this.hour).subscribe(res => {
         this.data = res;  
     });
     }
+  else {
+    alert('Les heures doivent etre entre 17:00 et 22:00');
+  }}
    else {
-    alert('Vérifiez Les Heures');
+    alert('Vérifiez Les coordonnées');
    }
   }
 getUserData(){

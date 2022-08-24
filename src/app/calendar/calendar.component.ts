@@ -94,6 +94,8 @@ export class CalendarComponent {
   form:FormGroup;
   submitted = false ;
   calendarData: any[] = [];
+  db:any;
+  fn:any;
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -136,7 +138,7 @@ export class CalendarComponent {
       this.maDate = this.datePipe.transform(this.viewDate, 'yyyy-MM-ddThh:mm');
       this.maDate1 = this.datePipe.transform(this.viewDate, 'yyyy-MM-ddThh:mm');
     }
-
+      
   }
 
 
@@ -257,7 +259,10 @@ export class CalendarComponent {
   insert() {
     this.hour.date_debut = this.maDate;
     this.hour.date_fin = this.maDate1;
-    if (this.hour.date_debut > "17:00" && this.hour.date_fin < "22:00" && this.hour.date_fin > this.hour.date_debut && this.hour.tache != null && this.hour.user_id != null ) 
+    this.db = this.maDate.substring(11,13);
+    this.fn = this.maDate1.substring(11,13);
+    
+    if (this.db > '16' && this.hour.date_fin < '23' && this.hour.date_fin > this.hour.date_debut && this.hour.tache != null && this.hour.user_id != null ) 
     {
       {
         this.dataService.insertHour(this.hour).subscribe(res => {
